@@ -19,6 +19,8 @@ Pom.xml
         </dependency>
         
 application.properties
+
+    # 配置
     spring.application.name=demo
 
     # 配置Mybatis
