@@ -4,7 +4,7 @@
 
 Pom.xml
         
-        可以从这里https://github.com/huangxincheng/dynamic-spring-boot-starter下载打包
+        <!--可以从这里https://github.com/huangxincheng/dynamic-spring-boot-starter下载打包-->
         <!--增加dynamic-spring-boot-starter的依赖-->
         <dependency>
             <groupId>com.qy</groupId>
