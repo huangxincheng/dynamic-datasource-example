@@ -1,0 +1,20 @@
+package com.qs;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@SpringBootApplication
+@MapperScan(basePackages = {"com.qs.mapper"})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
+// 必须增加扫描com.qy 否则QyDataSource Aop无效
+@ComponentScans(value = {@ComponentScan("com.qy")})
+public class DynamicDatasouceExampleApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DynamicDatasouceExampleApplication.class, args);
+    }
+}
