@@ -2,7 +2,11 @@ package com.qs.controller;
 
 import com.qs.domain.User;
 import com.qs.mapper.UserMapper;
+import com.qy.dynamic.spring.boot.autoconfigure.QyDataSource;
+import com.qy.dynamic.spring.boot.autoconfigure.annotation.QySource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,4 +43,56 @@ public class UserController {
     public List<User> findUserForDefault() {
         return userMapper.findUsers();
     }
+
+    @RequestMapping("/h1/add/{username}")
+    @QySource(source = "h1")
+    public int addUserForh1(@PathVariable String username) {
+        User user = new User();
+        user.setUsername(username);
+        return userMapper.insert(user);
+    }
+
+    @RequestMapping("/h2/add/{username}")
+    @QySource(source = "h2")
+    public int addUserForh2(@PathVariable String username) {
+        User user = new User();
+        user.setUsername(username);
+        return userMapper.insert(user);
+    }
+
+    @RequestMapping("/default/add/{username}")
+    public int addUserForDefault(@PathVariable String username) {
+        User user = new User();
+        user.setUsername(username);
+        return userMapper.insert(user);
+    }
+
+    @RequestMapping("/transactional")
+    @Transactional
+    public int transactional() {
+        QyDataSource.putSourceKey("h1");
+        User user1 = new User();
+        user1.setUsername("111");
+        userMapper.insert(user1);
+
+        QyDataSource.putSourceKey("h2");
+        User user2 = new User();
+        user2.setUsername("222");
+        userMapper.insert(user2);
+        return 2;
+    }
+
+    @RequestMapping("/transactional2")
+    @Transactional
+    public int transactional2() {
+        User user1 = new User();
+        user1.setUsername("333");
+        userMapper.inserth1(user1);
+
+        User user2 = new User();
+        user2.setUsername("444");
+        userMapper.inserth2(user2);
+        return 2;
+    }
+
 }

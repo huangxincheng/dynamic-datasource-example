@@ -2,6 +2,7 @@ package com.qs.mapper;
 
 import com.qs.domain.User;
 import com.qy.dynamic.spring.boot.autoconfigure.annotation.QySource;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,4 +31,15 @@ public interface UserMapper {
     @Select("select * from user")
     @QySource(source = "h2")
     List<User> findUsersForh2();
+
+    @Insert("insert into user(username) values(#{username})")
+    int insert(User user);
+
+    @Insert("insert into user(username) values(#{username})")
+    @QySource(source = "h1")
+    int inserth1(User user);
+
+    @Insert("insert into user(username) values(#{username})")
+    @QySource(source = "h2")
+    int inserth2(User user);
 }
