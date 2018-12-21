@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Date:   2018/6/30 16:07
@@ -93,6 +96,32 @@ public class UserController {
         user2.setUsername("444");
         userMapper.inserth2(user2);
         return 2;
+    }
+
+    public static void main(String[] args) {
+        int countSize = 10;
+        CountDownLatch countDownLatch = new CountDownLatch(countSize);
+        Executors.newFixedThreadPool(countSize).execute(() -> {
+            for (int i = 0; i < countSize; i++) {
+                    try {
+                        Thread.sleep(1000);
+                        System.out.println(Thread.currentThread() + " 111");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        countDownLatch.countDown();
+                        System.out.println(countDownLatch.getCount());
+                    }
+            }
+        });
+        try {
+//            countDownLatch.await(1, TimeUnit.SECONDS);
+            countDownLatch.await(300, TimeUnit.SECONDS);
+            System.out.println(countDownLatch.getCount());
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread() + "处理超时");
+        }
+        System.out.println(Thread.currentThread() + "ok");
     }
 
 }
