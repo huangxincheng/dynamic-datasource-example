@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan(basePackages = {"com.qs.mapper"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 // 必须增加扫描com.qy 否则QyDataSource Aop无效
-@ComponentScans(value = {@ComponentScan("com.qy")})
+//@ComponentScans(value = {@ComponentScan("com.qy")})
+@ComponentScans(value = {@ComponentScan("com.limaila")})
 public class DynamicDatasouceExampleApplication {
 
     public static void main(String[] args) {

@@ -27,6 +27,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.limaila</groupId>
+            <artifactId>support-spring-boot-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
